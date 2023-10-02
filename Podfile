@@ -1,0 +1,28 @@
+source 'https://bitbucket.org/cybavo/Specs_512.git'
+source 'https://cdn.cocoapods.org'
+
+platform :ios, '14.0'
+
+target 'metaoneSDKDemo' do
+  use_frameworks!
+
+  pod 'metaoneSDK', '~> 1.1.8'
+  pod 'CYBAVOWallet', :git => 'https://github.com/AAG-Ventures/wallet-fork.git'
+  pod 'SwiftLint'
+
+  target 'metaoneSDKDemoTests' do
+    # Pods for testing
+  end
+
+  post_install do |installer|
+    installer.generated_projects.each do |project|
+      project.targets.each do |target|
+        target.build_configurations.each do |config|
+          config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
+          config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '14.0'
+        end
+      end
+    end
+  end
+
+end
