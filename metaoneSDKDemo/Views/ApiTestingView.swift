@@ -84,21 +84,6 @@ struct ApiTestingView: View {
         )
         metaOneSDKManager.apiManager.getTransactions(walletId: nil, assetRef: nil, bip44: nil, tokenAddress: nil, page: 100, offset: 0, callback: getTransactionsCallback)
     }
-    
-    private func getUserContacts() {
-        let getUserContactsCallback = M1EnqueueCallback<ContactApiModel.ContactResponse>(
-            onSuccess: { response in
-                if let responseData = try? JSONEncoder().encode(response),
-                           let responseConverted = String(data: responseData, encoding: .utf8) {
-                            apiResponse = responseConverted
-                        }
-            },
-            onError: { errorResponse in
-                apiResponse = "Error getting user contacts: \(errorResponse.error)"
-            }
-        )
-//        metaOneSDKManager.apiManager.get(walletId: nil, assetRef: nil, bip44: nil, tokenAddress: nil, page: 100, offset: 0, callback: getUserContactsCallback)
-    }
 
     private func handleSelectedApiMethod(_ selectedMethod: String) {
             switch selectedMethod {
@@ -110,8 +95,6 @@ struct ApiTestingView: View {
                 getNfts()
             case "GET:Transactions":
                 getTransactions()
-            // case "GET:UserContacts":
-            //     getUserContacts()
             default:
                 break
             }

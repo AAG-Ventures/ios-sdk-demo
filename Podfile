@@ -1,4 +1,3 @@
-source 'https://bitbucket.org/cybavo/Specs_512.git'
 source 'https://cdn.cocoapods.org'
 
 platform :ios, '14.0'
@@ -6,7 +5,7 @@ platform :ios, '14.0'
 target 'metaoneSDKDemo' do
   use_frameworks!
 
-  pod 'metaoneSDK', '~> 1.2.3'
+  pod 'metaoneSDK', '~> 1.2.4'
   pod 'CYBAVOWallet', :git => 'https://github.com/AAG-Ventures/wallet-fork.git'
   pod 'SwiftLint'
 

@@ -32,6 +32,8 @@ struct AuthorizedView: View {
     @State private var timer: Timer?
     
     @State private var showApiTesting = false
+    @State private var showCustomSendTx = false
+
     
     var body: some View {
         BaseViewController(uiManager: uiManager) {
@@ -42,70 +44,80 @@ struct AuthorizedView: View {
                         sdkManager.sdkView
                     }
                 } else {
-                    VStack {
-                        
-                        M1Button(
-                            buttonText: "Open wallet", action: {sdkManager.openWallet()}, textColor: .white,
-                            backgroundColor: .blue
-                        )
-                        
-                        M1Button(
-                            buttonText: "API Testing", action: {showApiTesting = true}, textColor: .white,
-                            backgroundColor: .blue
-                        )
-                        
-                        Picker("Select Language", selection: $selectedLocale) {
-                            ForEach(supportedLanguages, id: \.self) { locale in
-                                Text(locale.name)
-                            }
-                        }
-                        .pickerStyle(MenuPickerStyle())
-                        .onChange(of: selectedLocale) { newLocale in
-                            uiManager.setCurrentLanguage(locale: newLocale)
-                        }
-                        
-                        M1Button(
-                            buttonText: "Change Theme (" + getTheme() + ")", action: {
-                                let newTheme = getTheme() == "light" ? "dark" : "light"
-                                setTheme(theme: newTheme)
-                                if newTheme == "dark" {
-                                    uiManager.setCurrentColorScheme(colorScheme: darkTheme)
-                                } else {
-                                    uiManager.setCurrentColorScheme(colorScheme: lightTheme)
+                    if showCustomSendTx {
+                        CustomSendTxView(isPresented: $showCustomSendTx)
+                    } else {
+                        VStack {
+                            M1Button(
+                                buttonText: "Open wallet", action: {sdkManager.openWallet()}, textColor: .white,
+                                backgroundColor: .blue
+                            )
+                            
+                            M1Button(
+                                buttonText: "API Testing", action: {showApiTesting = true}, textColor: .white,
+                                backgroundColor: .blue
+                            )
+                            
+                            M1Button(
+                                buttonText: "Send Transaction", action: {
+                                    showCustomSendTx = true
+                                }, textColor: .white,
+                                backgroundColor: .blue
+                            )
+                            
+                            Picker("Select Language", selection: $selectedLocale) {
+                                ForEach(supportedLanguages, id: \.self) { locale in
+                                    Text(locale.name)
                                 }
-                                
-                            },
-                            textColor: .white,
-                            backgroundColor: .blue
-                        )
-                        
-                        M1Button(
-                            buttonText: "Refresh (" + countdownString + ")",
-                            action: {
-                                sdkManager.refreshSession(callback: M1EnqueueCallback(
-                                    onSuccess: { _ in
-                                        self.sessionFinishesAt = sdkManager.getExpireAt()
-                                        startTimer()
-                                    },
-                                    onError: { _ in
-                                        M1Alert(title: "Session Token Failed to refresh", message: "Your account is currently active on another device. Please log out and sign in again to refresh your user token.", actionHandler: {  sdkManager.logout()
-                                            isAuthorized = false
-                                        }, actionName: "Logout")
+                            }
+                            .pickerStyle(MenuPickerStyle())
+                            .onChange(of: selectedLocale) { newLocale in
+                                uiManager.setCurrentLanguage(locale: newLocale)
+                            }
+                            
+                            M1Button(
+                                buttonText: "Change Theme (" + getTheme() + ")", action: {
+                                    let newTheme = getTheme() == "light" ? "dark" : "light"
+                                    setTheme(theme: newTheme)
+                                    if newTheme == "dark" {
+                                        uiManager.setCurrentColorScheme(colorScheme: darkTheme)
+                                    } else {
+                                        uiManager.setCurrentColorScheme(colorScheme: lightTheme)
                                     }
-                                ))
-                            },
-                            textColor: .white,
-                            backgroundColor: .blue
-                        )
-                        
-                        M1Button(
-                            buttonText: "Logout", action: {
-                                sdkManager.logout()
-                                isAuthorized = false
-                            }, textColor: .white,
-                            backgroundColor: .red
-                        )
-                    }.padding(.bottom, 16.0).padding([.leading, .trailing], 24)
+                                    
+                                },
+                                textColor: .white,
+                                backgroundColor: .blue
+                            )
+                            
+                            M1Button(
+                                buttonText: "Refresh (" + countdownString + ")",
+                                action: {
+                                    sdkManager.refreshSession(callback: M1EnqueueCallback(
+                                        onSuccess: { _ in
+                                            self.sessionFinishesAt = sdkManager.getExpireAt()
+                                            startTimer()
+                                        },
+                                        onError: { _ in
+                                            M1Alert(title: "Session Token Failed to refresh", message: "Your account is currently active on another device. Please log out and sign in again to refresh your user token.", actionHandler: {  sdkManager.logout()
+                                                isAuthorized = false
+                                            }, actionName: "Logout")
+                                        }
+                                    ))
+                                },
+                                textColor: .white,
+                                backgroundColor: .blue
+                            )
+                            
+                            M1Button(
+                                buttonText: "Logout", action: {
+                                    sdkManager.logout()
+                                    isAuthorized = false
+                                }, textColor: .white,
+                                backgroundColor: .red
+                            )
+                        }.padding(.bottom, 16.0).padding([.leading, .trailing], 24)
+                    }
                 }
             }.navigationBarBackButtonHidden(true)
             
