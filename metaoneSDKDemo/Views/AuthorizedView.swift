@@ -60,7 +60,7 @@ struct AuthorizedView: View {
                             
                             M1Button(
                                 buttonText: "Send Transaction", action: {
-                                    if sdkManager.isSignatureSet() {
+                                    if sdkManager.isSignatureSet() == true {
                                         showCustomSendTx = true
                                     } else {
                                         M1Alert(title: "Signature required", message: "Please create a Signature for your account before using this feature", actionName: "OK")

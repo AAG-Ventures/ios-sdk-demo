@@ -46,12 +46,10 @@ struct CustomSendTxView: View {
         isLoading = true
         metaOneSDKManager.sendTransaction(wallet: selectedWallet!, address: toAddress, amount: amount, asset: selectedWalletAsset, memo: nil, personalNote: nil, callback: M1EnqueueCallback<Bool>(
             onSuccess: { response in
-                metaOneSDKManager.hideSDKActivity()
                 isLoading = false
                 M1Alert(title: "Transaction sent", message: "Your transaction has been successfuly signed and sent", actionName: "Close")
             },
             onError: { error in
-                metaOneSDKManager.hideSDKActivity()
                 isLoading = false
                 M1Alert(title: "Transaction failed", message: "Transaction failed, reason: \(error)", actionName: "Close")
             }

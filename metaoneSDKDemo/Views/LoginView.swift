@@ -51,7 +51,6 @@ struct LoginView: View {
             onError: { errorResponse in
                 isLoading = false
                 errorMessage="Error Code :\(String(describing: errorResponse.code)) Message : \(errorResponse.error)"
-                print("Login error: \(errorResponse)")
             }
         )
         ApiClient.auth.sampleSsoLogin(request: loginRequest) { result in
@@ -69,7 +68,6 @@ struct LoginView: View {
         let callback = M1EnqueueCallback<Bool>(
             onSuccess: { _ in
                 metaOneSDKManager.setup(completion: {resolveAuthrisation()})
-
             },
             onError: { resp in
                 if !APIError.isLinkRequired(code: resp.code, responseCode: resp.responseCode) {
