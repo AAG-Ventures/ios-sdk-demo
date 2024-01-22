@@ -5,7 +5,7 @@ platform :ios, '14.0'
 target 'metaoneSDKDemo' do
   use_frameworks!
 
-  pod 'metaoneSDK', '~> 1.8.2'
+  pod 'metaoneSDK', '~> 1.8.4'
   pod 'CYBAVOWallet', :git => 'https://github.com/AAG-Ventures/wallet-fork.git'
   pod 'SwiftLint'
 

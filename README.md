@@ -34,7 +34,7 @@ Create a .plist file named metaoneSDKConfig and add following config:\*\*
 **Step 3: Add the following code to your Podfile:**
 
 `use_frameworks!
-  pod "metaoneSDK", "~> 1.8.2"
+  pod "metaoneSDK", "~> 1.8.4"
   pod "CYBAVOWallet", :git => 'https://github.com/AAG-Ventures/wallet-fork.git'`
 
 **Step 4: Setup event handler**
