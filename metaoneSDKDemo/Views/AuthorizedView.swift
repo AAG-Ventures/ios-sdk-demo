@@ -139,6 +139,8 @@ struct AuthorizedView: View {
                     isShowingSDKContent = true
                 case .hideSDKUI:
                     isShowingSDKContent = false
+                case .walletCreated(let walletResult):
+                    print("Wallet was created: \(walletResult)")
                 @unknown default:
                     fatalError()
                 }

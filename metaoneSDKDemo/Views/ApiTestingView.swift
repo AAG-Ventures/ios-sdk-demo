@@ -68,7 +68,7 @@ struct ApiTestingView: View {
                 apiResponse = "Error getting NFTs: \(errorResponse.error)"
             }
         )
-        metaOneSDKManager.apiManager.getNfts(walletId: nil, queryString: nil, limit: 100, offset: 0, callback: getNftsCallback)
+        metaOneSDKManager.apiManager.getNfts(walletId: nil, queryString: nil, limit: 20, offset: 0, callback: getNftsCallback)
     }
 
     private func getTransactions() {
@@ -83,7 +83,7 @@ struct ApiTestingView: View {
                 apiResponse = "Error getting transactions: \(errorResponse.error)"
             }
         )
-        metaOneSDKManager.apiManager.getTransactions(walletId: nil, assetRef: nil, bip44: nil, tokenAddress: nil, page: 100, offset: 0, callback: getTransactionsCallback)
+        metaOneSDKManager.apiManager.getTransactions(walletId: nil, assetRef: nil, bip44: nil, tokenAddress: nil, page: 20, offset: 0, callback: getTransactionsCallback)
     }
     
     private func getUserContacts() {

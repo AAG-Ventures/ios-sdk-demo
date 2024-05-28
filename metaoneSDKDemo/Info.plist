@@ -4,5 +4,7 @@
 <dict>
     <key>NSCameraUsageDescription</key>
     <string>Enabling camera permissions will allow you to scan the QR code for the wallet address or WalletConnect session or to take a profile picture to personalize your account look.</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Enable Microphone for websites searched inside. App is not using any Microphone recorded data itself.</string>
 </dict>
 </plist>

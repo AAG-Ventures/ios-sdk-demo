@@ -133,9 +133,8 @@ struct LoginView: View {
                 }
 
                 if  event == .hideSDKUI {
-
                     self.sdkView = nil
-                } else {
+                } else if event == .showSDKUI {
                     self.sdkView = metaOneSDKManager.sdkView
                 }
             }
