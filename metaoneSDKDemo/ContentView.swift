@@ -46,6 +46,7 @@ struct ContentView: View {
             }
             .onAppear {
                 sdkManager.initialize()
+                sdkManager.setPrefix(prefix: "")
                 onChangeIsAuthorized()
             }.onChange(of: sdkManager.getSessionActivityStatus()) { _ in
                 isAuthorized = sdkManager.getSessionActivityStatus() != SessionActivityStatus.unauthorised
